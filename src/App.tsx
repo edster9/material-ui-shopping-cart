@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useReducer } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css'
@@ -11,6 +11,11 @@ import cartReducer, {
 	ProductItem,
 } from './context/cart-reducer'
 
+/**
+ * Products catalog. This is currently a static array
+ * but will be loaded from an API call and stored in to
+ * the application context state
+ */
 const products: Array<ProductItem> = [
 	{
 		id: 'p1',
@@ -26,7 +31,13 @@ const products: Array<ProductItem> = [
 	},
 ]
 
+/**
+ * Main Application component with context and route handling
+ *
+ * @returns App component
+ */
 function App() {
+	// Initialize the shopping cart reducer and default empty cart
 	const [cartState, cartDispatcher] = useReducer(cartReducer, {
 		items: [],
 		totals: {
@@ -36,10 +47,6 @@ function App() {
 			total: 0,
 		},
 	})
-
-	useEffect(() => {
-		console.log('App - started')
-	}, [])
 
 	return (
 		<AppContext.Provider value={{ products, cart: cartState, cartDispatcher }}>

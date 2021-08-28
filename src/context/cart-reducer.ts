@@ -97,12 +97,10 @@ const addProductToCart = (
 		updatedCart.items[updatedItemIndex] = updatedItem
 	}
 
-	// Create a new state and return it
-	return {
-		...state,
-		items: updatedCart.items,
-		totals: calculateCartTotals(updatedCart.items),
-	}
+	// Recalculate the shopping cart totals
+	updatedCart.totals = calculateCartTotals(updatedCart.items)
+
+	return updatedCart
 }
 
 /**
@@ -138,12 +136,10 @@ const removeProductFromCart = (
 		updatedCart.items[updatedItemIndex] = updatedItem
 	}
 
-	// Create a new state and return it
-	return {
-		...state,
-		items: updatedCart.items,
-		totals: calculateCartTotals(updatedCart.items),
-	}
+	// Recalculate the shopping cart totals
+	updatedCart.totals = calculateCartTotals(updatedCart.items)
+
+	return updatedCart
 }
 
 /**
@@ -168,12 +164,10 @@ const deleteProductFromCart = (
 	// Remove the item from the shopping cart
 	updatedCart.items.splice(updatedItemIndex, 1)
 
-	// Create a new state and return it
-	return {
-		...state,
-		items: updatedCart.items,
-		totals: calculateCartTotals(updatedCart.items),
-	}
+	// Recalculate the shopping cart totals
+	updatedCart.totals = calculateCartTotals(updatedCart.items)
+
+	return updatedCart
 }
 
 /**

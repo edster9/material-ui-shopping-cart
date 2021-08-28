@@ -4,17 +4,22 @@ import { Link } from 'react-router-dom'
 import AppContext from '../context/app-context'
 import { CART_ACTION, ProductItem } from '../context/cart-reducer'
 
+/**
+ * Product listing page
+ *
+ * @param {*} props
+ * @returns ProductsPage component
+ */
 const ProductsPage = (props: any) => {
 	const context = useContext(AppContext)
 	const { cartDispatcher } = context
 
-	// useEffect(() => {
-	// 	console.log('ProductsPage::useEffect - context', context)
-	// }, [])
-
+	/**
+	 * Cart dispatcher for adding a product to the shopping cart
+	 *
+	 * @param {ProductItem} product
+	 */
 	const addProductToCart = (product: ProductItem) => {
-		// console.log('ProductsPage::addProductToCart - product', product)
-
 		cartDispatcher({ type: CART_ACTION.ADD_PRODUCT_TO_CART, payload: product })
 	}
 

@@ -4,15 +4,22 @@ import { Link } from 'react-router-dom'
 import AppContext from '../context/app-context'
 import { CART_ACTION, CartTotals } from '../context/cart-reducer'
 
+/**
+ * Shopping cart page
+ *
+ * @param {*} props
+ * @returns CartPage component
+ */
 const CartPage = (props: any) => {
 	const context = useContext(AppContext)
 	const { cartDispatcher } = context
 	const { totals: cartTotals } = context.cart
-	// useEffect(() => {
-	// 	console.log('CartPage::useEffect - context', context)
 
-	// }, [])
-
+	/**
+	 * Cart dispatcher for removing a product to the shopping cart
+	 *
+	 * @param {string} productId
+	 */
 	const removeProductFromCart = (productId: string) => {
 		cartDispatcher({
 			type: CART_ACTION.REMOVE_PRODUCT_FROM_CART,
@@ -20,6 +27,11 @@ const CartPage = (props: any) => {
 		})
 	}
 
+	/**
+	 * Cart dispatcher for deleting a product to the shopping cart
+	 *
+	 * @param {string} productId
+	 */
 	const deleteProductFromCart = (productId: string) => {
 		cartDispatcher({
 			type: CART_ACTION.DELETE_PRODUCT_FROM_CART,
@@ -27,12 +39,21 @@ const CartPage = (props: any) => {
 		})
 	}
 
+	/**
+	 * Cart dispatcher for emptying the shopping cart
+	 *
+	 */
 	const emptyCart = () => {
 		cartDispatcher({
 			type: CART_ACTION.EMPTY_CART,
 		})
 	}
 
+	/**
+	 * Cart dispatcher for checking out the shopping cart
+	 *
+	 * @param {CartTotals} totals
+	 */
 	const checkoutCart = (totals: CartTotals) => {
 		cartDispatcher({
 			type: CART_ACTION.CHECKOUT_CART,
