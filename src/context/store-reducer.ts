@@ -1,6 +1,7 @@
 export enum StoreAction {
 	ADD_PRODUCT_TO_CART,
 	REMOVE_PRODUCT_FROM_CART,
+	DELETE_PRODUCT_FROM_CART,
 	EMPTY_CART,
 	CHECKOUT_CART,
 }
@@ -23,66 +24,106 @@ export interface CartItem {
 	quantity: number
 }
 
+export interface CartTotals {
+	subTotal: number
+	tax: number
+	discounts: number
+	total: number
+}
 export interface StoreState {
-	cart: Array<CartItem>
+	items: Array<CartItem>
+	totals: CartTotals
 }
 
 export type StoreActions =
 	| { type: typeof StoreAction.ADD_PRODUCT_TO_CART; payload: StoreItem }
 	| { type: typeof StoreAction.REMOVE_PRODUCT_FROM_CART; payload: string }
+	| { type: typeof StoreAction.DELETE_PRODUCT_FROM_CART; payload: string }
 
-/*
-const addProductToCart = (product: StoreItem, state: any) => {
-  const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex(
-    item => item.id === product.id
-  );
+const addProductToCart = (product: StoreItem, state: StoreState) => {
+	const updatedCart = { ...state }
+	const updatedItemIndex = updatedCart.items.findIndex(
+		(item) => item.product.id === product.id
+	)
 
-  if (updatedItemIndex < 0) {
-    updatedCart.push({ ...product, quantity: 1 });
-  } else {
-    const updatedItem = {
-      ...updatedCart[updatedItemIndex]
-    };
+	if (updatedItemIndex < 0) {
+		const newProduct = { ...product }
+		updatedCart.items.push({ product: newProduct, quantity: 1 })
+	} else {
+		const updatedItem = {
+			...updatedCart.items[updatedItemIndex],
+		}
 
-    updatedItem.quantity++;
-    updatedCart[updatedItemIndex] = updatedItem;
-  }
+		updatedItem.quantity++
+		updatedCart.items[updatedItemIndex] = updatedItem
+	}
 
-  return { ...state, cart: updatedCart };
-};
+	return {
+		...state,
+		cart: updatedCart,
+		cartTotals: calculateCartTotals(updatedCart.items),
+	}
+}
 
-const removeProductFromCart = (productId: string, state: any) => {
-  console.log('Removing product with id: ' + productId);
-  const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex(item => item.id === productId);
+const removeProductFromCart = (productId: string, state: StoreState) => {
+	const updatedCart = { ...state }
+	const updatedItemIndex = updatedCart.items.findIndex(
+		(item) => item.product.id === productId
+	)
 
-  const updatedItem = {
-    ...updatedCart[updatedItemIndex]
-  };
+	const updatedItem = {
+		...updatedCart.items[updatedItemIndex],
+	}
 
-  updatedItem.quantity--;
+	updatedItem.quantity--
 
-  if (updatedItem.quantity <= 0) {
-    updatedCart.splice(updatedItemIndex, 1);
-  } else {
-    updatedCart[updatedItemIndex] = updatedItem;
-  }
+	if (updatedItem.quantity <= 0) {
+		updatedCart.items.splice(updatedItemIndex, 1)
+	} else {
+		updatedCart.items[updatedItemIndex] = updatedItem
+	}
 
-  return { ...state, cart: updatedCart };
-};
-*/
+	return {
+		...state,
+		cart: updatedCart,
+		cartTotals: calculateCartTotals(updatedCart.items),
+	}
+}
+
+const deleteProductFromCart = (productId: string, state: StoreState) => {
+	const updatedCart = { ...state }
+	const updatedItemIndex = updatedCart.items.findIndex(
+		(item) => item.product.id === productId
+	)
+
+	updatedCart.items.splice(updatedItemIndex, 1)
+
+	return {
+		...state,
+		cart: updatedCart,
+		cartTotals: calculateCartTotals(updatedCart.items),
+	}
+}
+
+const calculateCartTotals = (cart: CartItem[]) => {
+	return {
+		subTotal: 0,
+		tax: 0,
+		discounts: 0,
+		total: 0,
+	}
+}
 
 const storeReducer = (state: StoreState, action: StoreActions) => {
 	console.log('storeReducer - action', action)
 
 	switch (action.type) {
 		case StoreAction.ADD_PRODUCT_TO_CART:
-			// return addProductToCart(action.product, state);
-			return state
+			return addProductToCart(action.payload, state)
 		case StoreAction.REMOVE_PRODUCT_FROM_CART:
-			// return removeProductFromCart(action.productId, state);
-			return state
+			return removeProductFromCart(action.payload, state)
+		case StoreAction.DELETE_PRODUCT_FROM_CART:
+			return deleteProductFromCart(action.payload, state)
 		default:
 			return state
 	}

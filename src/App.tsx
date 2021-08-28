@@ -20,7 +20,13 @@ const products: Array<StoreItem> = [
 
 function App() {
 	const [storeState, storeDispatcher] = useReducer(storeReducer, {
-		cart: [],
+		items: [],
+		totals: {
+			subTotal: 0,
+			tax: 0,
+			discounts: 0,
+			total: 0,
+		},
 	})
 
 	useEffect(() => {
@@ -29,7 +35,7 @@ function App() {
 
 	return (
 		<AppContext.Provider
-			value={{ products, cart: storeState.cart, storeDispatcher }}
+			value={{ products, cart: storeState, storeDispatcher }}
 		>
 			<BrowserRouter>
 				<Switch>
