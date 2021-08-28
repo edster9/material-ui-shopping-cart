@@ -1,10 +1,10 @@
 import React from 'react'
-import { StoreItem, StoreActions, StoreState } from '../context/store-reducer'
+import { ProductItem, CartActions, CartState } from './cart-reducer'
 
 export interface AppContext {
-	products: Array<StoreItem>
-	cart: StoreState
-	storeDispatcher: React.Dispatch<StoreActions>
+	products: Array<ProductItem>
+	cart: CartState
+	cartDispatcher: React.Dispatch<CartActions>
 }
 
 const appContext = React.createContext<AppContext | null>(null)

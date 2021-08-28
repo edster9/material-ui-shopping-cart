@@ -6,20 +6,28 @@ import ProductsPage from './pages/Products'
 import CartPage from './pages/Cart'
 import CheckoutPage from './pages/Checkout'
 import AppContext from './context/app-context'
-import storeReducer, { StoreItem, StoreSpecial } from './context/store-reducer'
+import cartReducer, {
+	PRODUCT_SPECIAL,
+	ProductItem,
+} from './context/cart-reducer'
 
-const products: Array<StoreItem> = [
-	{ id: 'p1', title: 'Apple', price: 0.6, special: StoreSpecial.TWO_FOR_ONE },
+const products: Array<ProductItem> = [
+	{
+		id: 'p1',
+		title: 'Apple',
+		price: 0.6,
+		special: PRODUCT_SPECIAL.TWO_FOR_ONE,
+	},
 	{
 		id: 'p2',
 		title: 'Orange',
 		price: 0.25,
-		special: StoreSpecial.THREE_FOR_TWO,
+		special: PRODUCT_SPECIAL.THREE_FOR_TWO,
 	},
 ]
 
 function App() {
-	const [storeState, storeDispatcher] = useReducer(storeReducer, {
+	const [cartState, cartDispatcher] = useReducer(cartReducer, {
 		items: [],
 		totals: {
 			subTotal: 0,
@@ -34,9 +42,7 @@ function App() {
 	}, [])
 
 	return (
-		<AppContext.Provider
-			value={{ products, cart: storeState, storeDispatcher }}
-		>
+		<AppContext.Provider value={{ products, cart: cartState, cartDispatcher }}>
 			<BrowserRouter>
 				<Switch>
 					<Route path="/" component={ProductsPage} exact />

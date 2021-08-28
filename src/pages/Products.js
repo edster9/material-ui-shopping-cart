@@ -1,23 +1,21 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import AppContext from '../context/app-context'
-import { StoreItem, StoreAction } from '../context/store-reducer'
-
-//import MainNavigation from '../components/MainNavigation'
+import { CART_ACTION, ProductItem } from '../context/cart-reducer'
 
 const ProductsPage = (props: any) => {
 	const context = useContext(AppContext)
-	const { storeDispatcher } = context
+	const { cartDispatcher } = context
 
-	useEffect(() => {
-		console.log('ProductsPage::useEffect - context', context)
-	}, [])
+	// useEffect(() => {
+	// 	console.log('ProductsPage::useEffect - context', context)
+	// }, [])
 
-	const addProductToCart = (product: StoreItem) => {
-		console.log('ProductsPage::addProductToCart - product', product)
+	const addProductToCart = (product: ProductItem) => {
+		// console.log('ProductsPage::addProductToCart - product', product)
 
-		storeDispatcher({ type: StoreAction.ADD_PRODUCT_TO_CART, payload: product })
+		cartDispatcher({ type: CART_ACTION.ADD_PRODUCT_TO_CART, payload: product })
 	}
 
 	return (
