@@ -1,3 +1,5 @@
+import { makeEmptyCart } from './cart'
+
 /**
  * Cart reducer actions
  */
@@ -177,18 +179,7 @@ const deleteProductFromCart = (
  *
  * @returns CartState
  */
-const emptyCart = (): CartState => {
-	return {
-		items: [],
-		totals: {
-			subTotal: 0,
-			tax: 0,
-			discounts: 0,
-			total: 0,
-		},
-		totalItemCount: 0,
-	}
-}
+const emptyCart = (): CartState => makeEmptyCart()
 
 /**
  * Perform the shopping cart checkout transaction and empty the cart
