@@ -55,3 +55,11 @@ ReactJS has many choices for application level state management. The Context API
 ### Material UI
 
 Material UI framework is used here as the UI framework. This is ReactJS specific framework and allows for very fast layout design for desktop and mobile browsers.
+
+### Application
+
+The project uses `create-react-app` with `TypeScript` as the starting template. It also adds `Material-UI` framework and `React Router` for UX and basic route navigation.
+
+The React Context and Reducer system is used for global state management. A static inventory list is used for the moment vs. loading it from a DB or API layer. A reducer is setup using `useReducer` to handle all the shopping card actions. This allows all components to trigger a shopping cart action by using the global context object from anywhere.
+
+App major route pages are in `/pages/*` as their own functional component and all major sub components are defined in `/componenets/*`. This create a good level of object hierarchy throughout.
