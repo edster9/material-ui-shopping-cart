@@ -46,6 +46,12 @@ yarn start
 
 ### Typescript
 
+Typescript adds strong type safety to the project. This does increase the amount of code overall but the benefits of strong type safety reduces the errors in the long run.
+
 ### Context API
 
+ReactJS has many choices for application level state management. The Context API was chosen over Redux to demonstrate the its features. Context API has the capability to create separate reducers and contexts very similar to Redux.
+
 ### Material UI
+
+Material UI framework is used here as the UI framework. This is ReactJS specific framework and allows for very fast layout design for desktop and mobile browsers.
