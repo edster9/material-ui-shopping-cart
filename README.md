@@ -4,6 +4,8 @@
 
 This project shows a simple static shopping cart done in ReactJS. It is coded to demonstrate state management of the application using the React Context API. It also utilizes Typescript and the Material-UI framework.
 
+![Alt text](/screenshots/demo1.png?raw=true "Optional Title")
+
 ### Tech Stack
 
 This test project is a javascript application using the following tech stacks.
@@ -63,3 +65,11 @@ The project uses `create-react-app` with `TypeScript` as the starting template. 
 The React Context and Reducer system is used for global state management. A static inventory list is used for the moment vs. loading it from a DB or API layer. A reducer is setup using `useReducer` to handle all the shopping card actions. This allows all components to trigger a shopping cart action by using the global context object from anywhere.
 
 App major route pages are in `/pages/*` as their own functional component and all major sub components are defined in `/componenets/*`. This create a good level of object hierarchy throughout.
+
+### Shopping Cart Features
+
+![Alt text](/screenshots/demo2.png?raw=true "Optional Title")
+
+The shopping cart allows for adding and removing items as well as deleting an item from the cart entirely. You can also empty the cart all at once.
+
+The products have special deals that can be marked as such. `Two for One` or `Three for Two`. The price calculation engine will take the product special tags to calculate the discounts needed for the final total.
