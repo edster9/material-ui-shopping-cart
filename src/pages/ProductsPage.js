@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
 
 //import { Link } from 'react-router-dom'
 
@@ -25,7 +28,14 @@ const ProductsPage = (props: any) => {
 			productCard: {
 				minWidth: 275,
 			},
-			productItems: {},
+			productItems: {
+				marginTop: theme.spacing(1),
+			},
+			checkoutContainer: {
+				margin: 0,
+				padding: 0,
+				marginTop: theme.spacing(2),
+			},
 		})
 	)()
 
@@ -36,6 +46,17 @@ const ProductsPage = (props: any) => {
 				{context.products.map((product) => (
 					<Product key={product.id} item={product} />
 				))}
+				<Container className={classes.checkoutContainer}>
+					<Button
+						variant="contained"
+						size="small"
+						color="secondary"
+						component={Link}
+						to="cart"
+					>
+						Go To Shopping Cart
+					</Button>
+				</Container>
 			</Container>
 		</React.Fragment>
 	)
