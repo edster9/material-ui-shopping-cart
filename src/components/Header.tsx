@@ -17,43 +17,43 @@ import AppContext from '../context/app-context'
  * @returns Header
  */
 const Header = (props: any) => {
-	const context = useContext(AppContext)
+  const context = useContext(AppContext)
 
-	// Make the JSS styles
-	const classes = makeStyles((theme: Theme) =>
-		createStyles({
-			appBarWrapper: {
-				flexGrow: 1,
-			},
-			appBar: {},
-			pageTitle: {
-				flexGrow: 1,
-			},
-		})
-	)()
+  // Make the JSS styles
+  const classes = makeStyles((theme: Theme) =>
+    createStyles({
+      appBarWrapper: {
+        flexGrow: 1,
+      },
+      appBar: {},
+      pageTitle: {
+        flexGrow: 1,
+      },
+    })
+  )()
 
-	return (
-		<div className={classes.appBarWrapper}>
-			<AppBar position="static" className={classes.appBar}>
-				<Toolbar>
-					<Typography variant="h6" className={classes.pageTitle}>
-						{props.title}
-					</Typography>
-					<IconButton
-						edge="start"
-						color="inherit"
-						aria-label="cart"
-						component={Link}
-						to="cart"
-					>
-						<Badge badgeContent={context.cart.totalItemCount} color="secondary">
-							<ShoppingCartIcon />
-						</Badge>
-					</IconButton>
-				</Toolbar>
-			</AppBar>
-		</div>
-	)
+  return (
+    <div className={classes.appBarWrapper}>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.pageTitle}>
+            {props.title}
+          </Typography>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="cart"
+            component={Link}
+            to="cart"
+          >
+            <Badge badgeContent={context.cart.totalItemCount} color="secondary">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
+  )
 }
 
 export default Header

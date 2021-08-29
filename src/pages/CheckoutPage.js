@@ -19,59 +19,59 @@ import { CART_ACTION } from '../context/cart-reducer'
  * @returns CheckoutPage
  */
 const CheckoutPage = (props: any) => {
-	const context = useContext(AppContext)
-	const { cartDispatcher } = context
-	const { totals: cartTotals } = context.cart
+  const context = useContext(AppContext)
+  const { cartDispatcher } = context
+  const { totals: cartTotals } = context.cart
 
-	// Make the JSS styles
-	const classes = makeStyles((theme: Theme) =>
-		createStyles({
-			productCard: {
-				minWidth: 275,
-				marginTop: theme.spacing(1),
-			},
-			productItems: {
-				marginTop: theme.spacing(1),
-			},
-		})
-	)()
+  // Make the JSS styles
+  const classes = makeStyles((theme: Theme) =>
+    createStyles({
+      productCard: {
+        minWidth: 275,
+        marginTop: theme.spacing(1),
+      },
+      productItems: {
+        marginTop: theme.spacing(1),
+      },
+    })
+  )()
 
-	useEffect(() => {
-		checkoutCart()
-	}, [])
+  useEffect(() => {
+    checkoutCart()
+  }, [])
 
-	/**
-	 * Cart dispatcher for checking out the shopping cart
-	 *
-	 * @param {CartTotals} totals
-	 */
-	const checkoutCart = () => {
-		cartDispatcher({
-			type: CART_ACTION.CHECKOUT_CART,
-			payload: cartTotals,
-		})
-	}
+  /**
+   * Cart dispatcher for checking out the shopping cart
+   *
+   * @param {CartTotals} totals
+   */
+  const checkoutCart = () => {
+    cartDispatcher({
+      type: CART_ACTION.CHECKOUT_CART,
+      payload: cartTotals,
+    })
+  }
 
-	return (
-		<React.Fragment>
-			<Header title="Checkout Cart" />
-			<Container maxWidth="sm" className={classes.productItems}>
-				<Breadcrumbs aria-label="breadcrumb">
-					<UILink color="inherit" component={Link} to="">
-						Products
-					</UILink>
-					<Typography color="textPrimary">Checkout</Typography>
-				</Breadcrumbs>
-				<Card className={classes.productCard} variant="outlined">
-					<CardContent>
-						<Typography variant="h5" component="h2">
-							Your checkout is now completed
-						</Typography>
-					</CardContent>
-				</Card>
-			</Container>
-		</React.Fragment>
-	)
+  return (
+    <React.Fragment>
+      <Header title="Checkout Cart" />
+      <Container maxWidth="sm" className={classes.productItems}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <UILink color="inherit" component={Link} to="">
+            Products
+          </UILink>
+          <Typography color="textPrimary">Checkout</Typography>
+        </Breadcrumbs>
+        <Card className={classes.productCard} variant="outlined">
+          <CardContent>
+            <Typography variant="h5" component="h2">
+              Your checkout is now completed
+            </Typography>
+          </CardContent>
+        </Card>
+      </Container>
+    </React.Fragment>
+  )
 }
 
 export default CheckoutPage

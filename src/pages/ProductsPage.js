@@ -20,46 +20,46 @@ import AppContext from '../context/app-context'
  * @returns ProductsPage
  */
 const ProductsPage = (props: any) => {
-	const context = useContext(AppContext)
+  const context = useContext(AppContext)
 
-	// Make the JSS styles
-	const classes = makeStyles((theme: Theme) =>
-		createStyles({
-			productCard: {
-				minWidth: 275,
-			},
-			productItems: {
-				marginTop: theme.spacing(1),
-			},
-			checkoutContainer: {
-				margin: 0,
-				padding: 0,
-				marginTop: theme.spacing(2),
-			},
-		})
-	)()
+  // Make the JSS styles
+  const classes = makeStyles((theme: Theme) =>
+    createStyles({
+      productCard: {
+        minWidth: 275,
+      },
+      productItems: {
+        marginTop: theme.spacing(1),
+      },
+      checkoutContainer: {
+        margin: 0,
+        padding: 0,
+        marginTop: theme.spacing(2),
+      },
+    })
+  )()
 
-	return (
-		<React.Fragment>
-			<Header title="Products" />
-			<Container maxWidth="sm" className={classes.productItems}>
-				{context.products.map((product) => (
-					<Product key={product.id} item={product} />
-				))}
-				<Container className={classes.checkoutContainer}>
-					<Button
-						variant="contained"
-						size="small"
-						color="secondary"
-						component={Link}
-						to="cart"
-					>
-						Go To Shopping Cart
-					</Button>
-				</Container>
-			</Container>
-		</React.Fragment>
-	)
+  return (
+    <React.Fragment>
+      <Header title="Products" />
+      <Container maxWidth="sm" className={classes.productItems}>
+        {context.products.map((product) => (
+          <Product key={product.id} item={product} />
+        ))}
+        <Container className={classes.checkoutContainer}>
+          <Button
+            variant="contained"
+            size="small"
+            color="secondary"
+            component={Link}
+            to="cart"
+          >
+            Go To Shopping Cart
+          </Button>
+        </Container>
+      </Container>
+    </React.Fragment>
+  )
 }
 
 export default ProductsPage

@@ -21,115 +21,115 @@ import { CART_ACTION } from '../context/cart-reducer'
  * @returns CartPage
  */
 const CartPage = (props: any) => {
-	const context = useContext(AppContext)
-	const { cartDispatcher } = context
-	const { totals: cartTotals } = context.cart
+  const context = useContext(AppContext)
+  const { cartDispatcher } = context
+  const { totals: cartTotals } = context.cart
 
-	// Make the JSS styles
-	const classes = makeStyles((theme: Theme) =>
-		createStyles({
-			productCard: {
-				minWidth: 275,
-				marginTop: theme.spacing(1),
-			},
-			productItems: {
-				marginTop: theme.spacing(1),
-			},
-			checkoutContainer: {
-				margin: 0,
-				padding: 0,
-				marginTop: theme.spacing(2),
-			},
-		})
-	)()
+  // Make the JSS styles
+  const classes = makeStyles((theme: Theme) =>
+    createStyles({
+      productCard: {
+        minWidth: 275,
+        marginTop: theme.spacing(1),
+      },
+      productItems: {
+        marginTop: theme.spacing(1),
+      },
+      checkoutContainer: {
+        margin: 0,
+        padding: 0,
+        marginTop: theme.spacing(2),
+      },
+    })
+  )()
 
-	/**
-	 * Cart dispatcher for emptying the shopping cart
-	 *
-	 */
-	const emptyCart = () => {
-		cartDispatcher({
-			type: CART_ACTION.EMPTY_CART,
-		})
-	}
+  /**
+   * Cart dispatcher for emptying the shopping cart
+   *
+   */
+  const emptyCart = () => {
+    cartDispatcher({
+      type: CART_ACTION.EMPTY_CART,
+    })
+  }
 
-	/**
-	 * Render the shopping cart items or empty cart message
-	 *
-	 */
-	const renderCart = () => {
-		if (context.cart.items.length) {
-			return (
-				<React.Fragment>
-					{context.cart.items.map((cartItem) => (
-						<CartProduct key={cartItem.product.id} item={cartItem} />
-					))}
-					<Card className={classes.productCard} variant="outlined">
-						<CardContent>
-							<Typography>
-								Sub Total: <strong>${cartTotals.subTotal.toFixed(2)}</strong>
-							</Typography>
-							<Typography>
-								Tax: <strong>${cartTotals.tax.toFixed(2)}</strong>
-							</Typography>
-							<Typography>
-								Discounts: <strong>${cartTotals.discounts.toFixed(2)}</strong>
-							</Typography>
-							<Typography>
-								Total: <strong>${cartTotals.total.toFixed(2)}</strong>
-							</Typography>
-						</CardContent>
-					</Card>
-					<Container className={classes.checkoutContainer}>
-						<Button
-							variant="contained"
-							size="small"
-							color="primary"
-							component={Link}
-							to="checkout"
-						>
-							Checkout Cart
-						</Button>{' '}
-						<Button
-							variant="contained"
-							size="small"
-							color="secondary"
-							onClick={() => emptyCart()}
-						>
-							Empty Cart
-						</Button>
-					</Container>
-				</React.Fragment>
-			)
-		} else {
-			return (
-				<React.Fragment>
-					<Card className={classes.productCard} variant="outlined">
-						<CardContent>
-							<Typography variant="h5" component="h2">
-								Your shopping cart it empty
-							</Typography>
-						</CardContent>
-					</Card>
-				</React.Fragment>
-			)
-		}
-	}
+  /**
+   * Render the shopping cart items or empty cart message
+   *
+   */
+  const renderCart = () => {
+    if (context.cart.items.length) {
+      return (
+        <React.Fragment>
+          {context.cart.items.map((cartItem) => (
+            <CartProduct key={cartItem.product.id} item={cartItem} />
+          ))}
+          <Card className={classes.productCard} variant="outlined">
+            <CardContent>
+              <Typography>
+                Sub Total: <strong>${cartTotals.subTotal.toFixed(2)}</strong>
+              </Typography>
+              <Typography>
+                Tax: <strong>${cartTotals.tax.toFixed(2)}</strong>
+              </Typography>
+              <Typography>
+                Discounts: <strong>${cartTotals.discounts.toFixed(2)}</strong>
+              </Typography>
+              <Typography>
+                Total: <strong>${cartTotals.total.toFixed(2)}</strong>
+              </Typography>
+            </CardContent>
+          </Card>
+          <Container className={classes.checkoutContainer}>
+            <Button
+              variant="contained"
+              size="small"
+              color="primary"
+              component={Link}
+              to="checkout"
+            >
+              Checkout Cart
+            </Button>{' '}
+            <Button
+              variant="contained"
+              size="small"
+              color="secondary"
+              onClick={() => emptyCart()}
+            >
+              Empty Cart
+            </Button>
+          </Container>
+        </React.Fragment>
+      )
+    } else {
+      return (
+        <React.Fragment>
+          <Card className={classes.productCard} variant="outlined">
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                Your shopping cart it empty
+              </Typography>
+            </CardContent>
+          </Card>
+        </React.Fragment>
+      )
+    }
+  }
 
-	return (
-		<React.Fragment>
-			<Header title="Shopping Cart" />
-			<Container maxWidth="sm" className={classes.productItems}>
-				<Breadcrumbs aria-label="breadcrumb">
-					<UILink color="inherit" component={Link} to="">
-						Products
-					</UILink>
-					<Typography color="textPrimary">Cart</Typography>
-				</Breadcrumbs>
-				{renderCart()}
-			</Container>
-		</React.Fragment>
-	)
+  return (
+    <React.Fragment>
+      <Header title="Shopping Cart" />
+      <Container maxWidth="sm" className={classes.productItems}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <UILink color="inherit" component={Link} to="">
+            Products
+          </UILink>
+          <Typography color="textPrimary">Cart</Typography>
+        </Breadcrumbs>
+        {renderCart()}
+      </Container>
+    </React.Fragment>
+  )
 }
 
 export default CartPage

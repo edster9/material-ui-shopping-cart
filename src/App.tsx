@@ -22,20 +22,20 @@ const products: Array<ProductItem> = makeStaticProducts()
  * @returns App
  */
 function App() {
-	// Initialize the shopping cart reducer and default empty cart
-	const [cartState, cartDispatcher] = useReducer(cartReducer, makeEmptyCart())
+  // Initialize the shopping cart reducer and default empty cart
+  const [cartState, cartDispatcher] = useReducer(cartReducer, makeEmptyCart())
 
-	return (
-		<AppContext.Provider value={{ products, cart: cartState, cartDispatcher }}>
-			<BrowserRouter>
-				<Switch>
-					<Route path="/" component={ProductsPage} exact />
-					<Route path="/cart" component={CartPage} exact />
-					<Route path="/checkout" component={CheckoutPage} exact />
-				</Switch>
-			</BrowserRouter>
-		</AppContext.Provider>
-	)
+  return (
+    <AppContext.Provider value={{ products, cart: cartState, cartDispatcher }}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={ProductsPage} exact />
+          <Route path="/cart" component={CartPage} exact />
+          <Route path="/checkout" component={CheckoutPage} exact />
+        </Switch>
+      </BrowserRouter>
+    </AppContext.Provider>
+  )
 }
 
 export default App
