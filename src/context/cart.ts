@@ -1,6 +1,10 @@
-import { PRODUCT_SPECIAL } from '../context/cart-reducer'
+import {
+	CartState,
+	ProductItem,
+	PRODUCT_SPECIAL,
+} from '../context/cart-reducer'
 
-export const makeStaticProducts = () => {
+export const makeStaticProducts = (): ProductItem[] => {
 	return [
 		{
 			id: 'p1',
@@ -20,7 +24,7 @@ export const makeStaticProducts = () => {
 	]
 }
 
-export const makeEmptyCart = () => {
+export const makeEmptyCart = (): CartState => {
 	return {
 		items: [],
 		totals: {
