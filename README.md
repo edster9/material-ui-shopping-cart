@@ -4,7 +4,11 @@
 
 This project shows a simple static shopping cart done in ReactJS. It is coded to demonstrate state management of the application using the React Context API. It also utilizes Typescript and the Material-UI framework.
 
-![Alt text](/screenshots/demo1.png?raw=true "Optional Title")
+![Alt text](/screenshots/demo1.png?raw=true "Products Page")
+
+### Online Demo
+
+You can see a running demo here - [Online Demo](http://material-ui-shopping-cart.positiveignition.com.s3-website-us-east-1.amazonaws.com/)
 
 ### Tech Stack
 
@@ -68,7 +72,7 @@ App major route pages are in `/pages/*` as their own functional component and al
 
 ### Shopping Cart Features
 
-![Alt text](/screenshots/demo2.png?raw=true "Optional Title")
+![Alt text](/screenshots/demo2.png?raw=true "Shopping Cart")
 
 The shopping cart allows for adding and removing items as well as deleting an item from the cart entirely. You can also empty the cart all at once.
 
