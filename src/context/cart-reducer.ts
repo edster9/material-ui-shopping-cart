@@ -25,6 +25,7 @@ export interface ProductItem {
 	id: string
 	title: string
 	price: number
+	description: string
 	special: PRODUCT_SPECIAL
 }
 
@@ -52,6 +53,7 @@ export interface CartTotals {
 export interface CartState {
 	items: Array<CartItem>
 	totals: CartTotals
+	totalItemCount: number
 }
 
 /**
@@ -69,7 +71,7 @@ export type CartActions =
  *
  * @param {ProductItem} product
  * @param {CartState} state
- * @returns {CartState}
+ * @returns CartState
  */
 const addProductToCart = (
 	product: ProductItem,
@@ -98,7 +100,7 @@ const addProductToCart = (
 	}
 
 	// Recalculate the shopping cart totals
-	updatedCart.totals = calculateCartTotals(updatedCart.items)
+	updatedCart.totals = calculateCartTotals(updatedCart)
 
 	return updatedCart
 }
@@ -108,7 +110,7 @@ const addProductToCart = (
  *
  * @param {string} productId
  * @param {CartState} state
- * @returns {CartState}
+ * @returns CartState
  */
 const removeProductFromCart = (
 	productId: string,
@@ -137,7 +139,7 @@ const removeProductFromCart = (
 	}
 
 	// Recalculate the shopping cart totals
-	updatedCart.totals = calculateCartTotals(updatedCart.items)
+	updatedCart.totals = calculateCartTotals(updatedCart)
 
 	return updatedCart
 }
@@ -147,7 +149,7 @@ const removeProductFromCart = (
  *
  * @param {string} productId
  * @param {CartState} state
- * @returns {CartState}
+ * @returns CartState
  */
 const deleteProductFromCart = (
 	productId: string,
@@ -165,7 +167,7 @@ const deleteProductFromCart = (
 	updatedCart.items.splice(updatedItemIndex, 1)
 
 	// Recalculate the shopping cart totals
-	updatedCart.totals = calculateCartTotals(updatedCart.items)
+	updatedCart.totals = calculateCartTotals(updatedCart)
 
 	return updatedCart
 }
@@ -173,7 +175,7 @@ const deleteProductFromCart = (
 /**
  * Empty the shopping cart entirely
  *
- * @returns {CartState}
+ * @returns CartState
  */
 const emptyCart = (): CartState => {
 	return {
@@ -184,6 +186,7 @@ const emptyCart = (): CartState => {
 			discounts: 0,
 			total: 0,
 		},
+		totalItemCount: 0,
 	}
 }
 
@@ -191,7 +194,7 @@ const emptyCart = (): CartState => {
  * Perform the shopping cart checkout transaction and empty the cart
  *
  * @param {CartTotals} totals
- * @returns {CartState}
+ * @returns CartState
  */
 const checkoutCart = (totals: CartTotals): CartState => {
 	return emptyCart()
@@ -201,9 +204,9 @@ const checkoutCart = (totals: CartTotals): CartState => {
  * Calculate all the shopping cart totals
  *
  * @param {CartItem[]} cart
- * @returns {CartTotals}
+ * @returns CartTotals
  */
-const calculateCartTotals = (cart: CartItem[]): CartTotals => {
+const calculateCartTotals = (cart: CartState): CartTotals => {
 	// Create new totals with zero balances
 	const totals: CartTotals = {
 		subTotal: 0,
@@ -212,8 +215,13 @@ const calculateCartTotals = (cart: CartItem[]): CartTotals => {
 		total: 0,
 	}
 
+	cart.totalItemCount = 0
+
 	// Iterate all the shopping cart items
-	for (const cartItem of cart) {
+	for (const cartItem of cart.items) {
+		// Calculate the total item in the cart
+		cart.totalItemCount += cartItem.quantity
+
 		// Add sub total based on quantity
 		totals.subTotal += (cartItem.product.price * cartItem.quantity * 100) / 100
 
@@ -244,7 +252,7 @@ const calculateCartTotals = (cart: CartItem[]): CartTotals => {
  *
  * @param {CartState} state
  * @param {CartAction} action
- * @returns {CartState}
+ * @returns CartState
  */
 const cartReducer = (state: CartState, action: CartActions): CartState => {
 	// console.log('cartReducer - action', action)

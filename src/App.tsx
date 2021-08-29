@@ -2,9 +2,9 @@ import React, { useReducer } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css'
-import ProductsPage from './pages/Products'
-import CartPage from './pages/Cart'
-import CheckoutPage from './pages/Checkout'
+import ProductsPage from './pages/ProductsPage'
+import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
 import AppContext from './context/app-context'
 import cartReducer, {
 	PRODUCT_SPECIAL,
@@ -21,12 +21,15 @@ const products: Array<ProductItem> = [
 		id: 'p1',
 		title: 'Apple',
 		price: 0.6,
+		description:
+			'An apple a day keeps the doctor away. Buy one, get one free special.',
 		special: PRODUCT_SPECIAL.TWO_FOR_ONE,
 	},
 	{
 		id: 'p2',
 		title: 'Orange',
 		price: 0.25,
+		description: 'Fresh Florida oranges. 3 for the price of 2 special',
 		special: PRODUCT_SPECIAL.THREE_FOR_TWO,
 	},
 ]
@@ -34,7 +37,7 @@ const products: Array<ProductItem> = [
 /**
  * Main Application component with context and route handling
  *
- * @returns App component
+ * @returns App
  */
 function App() {
 	// Initialize the shopping cart reducer and default empty cart
@@ -46,6 +49,7 @@ function App() {
 			discounts: 0,
 			total: 0,
 		},
+		totalItemCount: 0,
 	})
 
 	return (
