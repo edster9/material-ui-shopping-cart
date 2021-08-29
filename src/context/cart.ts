@@ -1,9 +1,10 @@
-import {
-	CartState,
-	ProductItem,
-	PRODUCT_SPECIAL,
-} from '../context/cart-reducer'
+import { CartState, ProductItem, PRODUCT_SPECIAL } from './cart-reducer'
 
+/**
+ * Create a new static product list to be used the shopping inventory list
+ *
+ * @returns ProductItem[]
+ */
 export const makeStaticProducts = (): ProductItem[] => {
 	return [
 		{
@@ -24,6 +25,11 @@ export const makeStaticProducts = (): ProductItem[] => {
 	]
 }
 
+/**
+ * Creates an empty Shopping Cart object used for resetting the shopping cart state
+ *
+ * @returns CarState
+ */
 export const makeEmptyCart = (): CartState => {
 	return {
 		items: [],
