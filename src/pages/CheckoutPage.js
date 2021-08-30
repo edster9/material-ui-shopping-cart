@@ -36,6 +36,11 @@ const CheckoutPage = (props: any) => {
     })
   )()
 
+  /**
+   * Checkout the cart on the load of this page
+   * this will be a full checkout system later
+   *
+   */
   useEffect(() => {
     checkoutCart()
   }, [])
